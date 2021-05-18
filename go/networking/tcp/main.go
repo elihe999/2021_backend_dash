@@ -9,15 +9,21 @@ func main() {
 	listen, err := net.Listen("tcp", "127.0.0.1:3333")
 	if err != nil {
 		fmt.Println("err", "failed to listen")
+		return // return exit main function
 	}
 
-	if listen != nil {
+	for {
+		conn, err := listen.Accept()
 
+		if err != nil {
+			fmt.Println("err : ", err)
+			return // return exit main function
+		}
+
+		go handler(conn)
 	}
+}
 
-	conn, err := listen.Accept()
-
-	if err != nil {
-		fmt.Println("err : ", err)
-	}
+func handler(c net.Conn) {
+	// todo
 }
