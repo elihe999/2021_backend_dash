@@ -1,18 +1,12 @@
-// package main
-
-// import "github.com/beego/beego/v2/server/web"
-
-// func main() {
-// 	web.Run()
-// }
-
 package main
 
 import (
 	"os/exec"
 	"runtime"
 
+	"example.com/m/controllers"
 	"github.com/beego/beego/v2/server/web"
+	"github.com/beego/beego/v2/server/web/filter/cors"
 )
 
 func openBrowser(url string) error {
@@ -30,16 +24,33 @@ func openBrowser(url string) error {
 	return exec.Command(cmd, append(args, url)...).Start()
 }
 
-type MainController struct {
-	web.Controller
-}
+// type MainController struct {
+// 	web.Controller
+// }
 
-func (this *MainController) Get() {
-	this.Ctx.WriteString("hello world")
-}
+// func (this *MainController) Get() {
+// 	this.Data["Website"] = "beego.me"
+// 	this.Data["Email"] = "astaxie@gmail.com"
+// 	this.TplName = "user/index.tpl"
+// 	this.Render()
+// }
 
 func main() {
-	openBrowser("http://localhost:8080")
-	web.Router("/", &MainController{})
+	// beego.AppConfig.String("dev::httpport")
+	openBrowser("http://localhost:8888")
+	web.InsertFilter("*", web.BeforeRouter, cors.Allow(&cors.Options{
+		AllowAllOrigins:  true,
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowHeaders:     []string{"Origin", "Authorization", "Access-Control-Allow-Origin", "Access-Control-Allow-Headers", "Content-Type"},
+		ExposeHeaders:    []string{"Content-Length", "Access-Control-Allow-Origin", "Access-Control-Allow-Headers", "Content-Type"},
+		AllowCredentials: true,
+	}))
+	// web.Router("/", &MainController{})
+	web.Router("/", &controllers.MainController{})
+	web.Router("/sip/", &controllers.SipController{})
+	web.Router("/device/", &controllers.DeviceController{})
+	web.Router("/userinfo/", &controllers.UserInfoController{})
+	// web.Router("/sysinfo/:id:int", &controllers.TaskController{}, "get:GetTask;put:UpdateTask")
+	// web.Router("/device/:id:int", &controllers.TaskController{}, "get:GetTask;put:UpdateTask")
 	web.Run()
 }
