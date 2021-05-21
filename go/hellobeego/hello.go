@@ -24,17 +24,6 @@ func openBrowser(url string) error {
 	return exec.Command(cmd, append(args, url)...).Start()
 }
 
-// type MainController struct {
-// 	web.Controller
-// }
-
-// func (this *MainController) Get() {
-// 	this.Data["Website"] = "beego.me"
-// 	this.Data["Email"] = "astaxie@gmail.com"
-// 	this.TplName = "user/index.tpl"
-// 	this.Render()
-// }
-
 func main() {
 	// beego.AppConfig.String("dev::httpport")
 	openBrowser("http://localhost:8888")
