@@ -135,7 +135,22 @@ echo ($obj->bar)(), PHP_EOL;
 
 #### extends
 
+#### ::class
+关键词 class 也可用于类名的解析。使用 ClassName::class 可以获取包含类 ClassName 的完全限定名称。这对使用了 命名空间 的类尤其有用。
 
+示例 #14 类名的解析
+
+```php
+<?php
+namespace NS {
+    class ClassName {
+    }
+
+    echo ClassName::class;
+}
+?>
+```
+> 输出 NS\ClassName
 ## Issue
 
 1) Fatal error: Class declarations may not be nested in
