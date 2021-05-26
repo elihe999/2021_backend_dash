@@ -6,6 +6,15 @@
 - object
 - function
 
+## function
+
+匿名函数和箭头函数都是 Closure 类的实现。箭头函数是 PHP 7.4 的新语法，是一种更简洁的 匿名函数 写法。
+
+### 可变函数
+
+PHP 支持可变函数的概念。这意味着如果一个变量名后有圆括号，PHP 将寻找与变量的值同名的函数，并且尝试执行它。可变函数可以用来实现包括回调函数，函数表在内的一些用途。
+
+可变函数不能用于例如 echo，print，unset()，isset()，empty()，include，require 以及类似的语言结构。需要使用自己的包装函数来将这些结构用作可变函数。
 
 ## class and object
 ### object
