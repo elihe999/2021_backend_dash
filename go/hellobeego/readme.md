@@ -91,5 +91,16 @@ file write to `/gopath/src/apiproject/apiproject.tar.gz`
 
 go get github.com/astaxie/beego/config
 
+
+## orm
+
+app.conf
+
+- appname
+- httpport
+- runmode
+
+orm mysql
+
 ## Issue
 
