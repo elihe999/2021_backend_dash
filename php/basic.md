@@ -36,6 +36,10 @@ $bar->do_foo();
 ?>
 ```
 
+=======
+
+### object
+
 ```php
 <?php
 class Car
@@ -165,5 +169,4 @@ namespace NS {
 1) Fatal error: Class declarations may not be nested in
 
 类里面声明类
-
 
