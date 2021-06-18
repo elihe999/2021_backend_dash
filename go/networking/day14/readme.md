@@ -31,3 +31,21 @@ defer end
 2
 1
 ```
+
+## networking
+
+* http
+
+Golang 没有CRL (C++). pkgdoc
+
+## 切片
+
+```go
+slice[i:]  // 从 i 切到最尾部
+slice[:j]  // 从最开头切到 j(不包含 j)
+slice[:]   // 从头切到尾，等价于复制整个 slice
+// example
+slice[i:j]
+slice[i:j:k]
+// 其中 i 表示从 slice 的第几个元素开始切，j 控制切片的长度(j-i)，k 控制切片的容量(k-i)，如果没有给定 k，则表示切到底层数组的最尾部。下面是几种常见的简写形式：
+```
