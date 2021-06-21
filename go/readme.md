@@ -81,6 +81,15 @@ new 被用来分配除了引用类型的所有其他类型的内存： int, stri
 
 ### 包的概念
 
+#### go.mod
 
+go.mod 提供了module, require、replace和exclude 四个命令
+module 语句指定包的名字（路径）
+require 语句指定的依赖项模块
+replace 语句可以替换依赖项模块
+exclude 语句可以忽略依赖项模块
 
+#### go.sum
+
+go.sum 文件来记录 dependency tree
 ## rpc
