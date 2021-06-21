@@ -1,8 +1,8 @@
 package main
 
 import (
-	_ "go/gin_example/03/app"
-	"go/gin_example/03/routes"
+	_ "03/app"
+	"03/routes"
 )
 
 func main() {

@@ -120,6 +120,12 @@ go mod vendor
 
 > ?Can not find package .
 
-```go
+> go.mod
 
+```go
+module 03   // Here is the prefix you entry on 'go mod init'
+
+go 1.16
+
+require github.com/gin-gonic/gin v1.7.2
 ```

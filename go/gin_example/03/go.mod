@@ -1,4 +1,4 @@
-module example.com/m
+module 03
 
 go 1.16
 
