@@ -25,3 +25,101 @@ func main() {
 }
 ```
 
+## Arch
+
+### Route
+
+```go
+// group routes 分组路由
+defaultHandler := func(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{
+		"path": c.FullPath(),
+	})
+}
+// group: v1
+v1 := r.Group("/v1")
+{
+	v1.GET("/posts", defaultHandler)
+	v1.GET("/series", defaultHandler)
+}
+// group: v2
+v2 := r.Group("/v2")
+{
+	v2.GET("/posts", defaultHandler)
+	v2.GET("/series", defaultHandler)
+}
+```
+#### auto load
+
+03
+```go
+func InitRouter() *gin.Engine {
+	r := gin.Default()
+	// http://127.0.0.1:8080/index
+	r.GET("/index", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"code": "ok",
+		})
+	})
+	r.GET("/goods", app.GetGoods)
+	// 默认端口是 8080
+	return r
+}
+```
+
+> 方法2
+
+```go
+type Router func(*gin.Engine)
+var routers = []Router{}
+
+func RegisterRoute(routes ...Router) { // []
+	routers = append(routers, routes...) // ... [] => routers切片...
+}
+
+func InitRouter() *gin.Engine {
+	r := gin.Default()
+
+	for _, route := range routers {
+		route(r) // 加载route
+	}
+
+	return r
+}
+```
+
+加载route route()
+
+```go
+package order
+
+import (
+	"go2011/day17/03/routes"
+
+	"github.com/gin-gonic/gin"
+)
+
+func init() { // 初始化的时候注册
+	routes.RegisterRoute(Routes)
+}
+
+func Routes(g *gin.Engine) {
+	// g.GET
+	g.GET("/getorder", GetOrder)
+}
+```
+
+## Issue
+
+> ?Package xxx is not in GOROOT
+
+```go
+go mod init
+go mod vendor
+```
+
+> ?Can not find package .
+
+```go
+
+```

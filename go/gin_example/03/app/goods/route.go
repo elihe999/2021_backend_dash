@@ -1,7 +1,7 @@
 package goods
 
 import (
-	"go2011/day17/03/routes"
+	"03/routes"
 
 	"github.com/gin-gonic/gin"
 )
