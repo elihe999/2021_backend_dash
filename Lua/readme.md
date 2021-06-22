@@ -183,3 +183,54 @@ print("字符串 Test 长度 ",#"Test" )
 
 print("菜鸟教程网址长度 ",#"www.runoob.com" )
 ```
+
+### Lua 模块与包
+
+```lua
+-- 文件名为 module.lua
+-- 定义一个名为 module 的模块
+module = {}
+ 
+-- 定义一个常量
+module.constant = "这是一个常量"
+ 
+-- 定义一个函数
+function module.func1()
+    io.write("这是一个公有函数！\n")
+end
+ 
+local function func2()
+    print("这是一个私有函数！")
+end
+ 
+function module.func3()
+    func2()
+end
+ 
+return module
+```
+
+#### require 函数
+
+### Lua 元表(Metatable)
+
+- setmetatable(table,metatable): 对指定 table 设置元表(metatable)，如果元表(metatable)中存在 __metatable 键值，setmetatable 会失败。
+- getmetatable(table): 返回对象的元表(metatable)。
+
+### Lua 垃圾回收
+
+Lua 提供了以下函数collectgarbage ([opt [, arg]])用来控制自动内存管理:
+
+- collectgarbage("collect"): 做一次完整的垃圾收集循环。通过参数 opt 它提供了一组不同的功能：
+
+- collectgarbage("count"): 以 K 字节数为单位返回 Lua 使用的总内存数。 这个值有小数部分，所以只需要乘上 1024 就能得到 Lua 使用的准确字节数（除非溢出）。
+
+- collectgarbage("restart"): 重启垃圾收集器的自动运行。
+
+- collectgarbage("setpause"): 将 arg 设为收集器的 间歇率。 返回 间歇率 的前一个值。
+
+- collectgarbage("setstepmul"): 返回 步进倍率 的前一个值。
+
+- collectgarbage("step"): 单步运行垃圾收集器。 步长"大小"由 arg 控制。 传入 0 时，收集器步进（不可分割的）一步。 传入非 0 值， 收集器收集相当于 Lua 分配这些多（K 字节）内存的工作。 如果收集器结束一个循环将返回 true 。
+
+- collectgarbage("stop"): 停止垃圾收集器的运行。 在调用重启前，收集器只会因显式的调用运行。
