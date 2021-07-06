@@ -57,7 +57,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  $flight->forceDelete();
 ```
 
-## allow
+### allow
 
 php\laravel_test\day9\app\Model\Admin.php
 ```
@@ -80,6 +80,70 @@ class Admin extends Model
     protected $fillable = ['name','email'];
     //不允许操作属性  字段黑名单
     protected $guarded = ['password'];
+
+}
+```
+
+1. 每一个继承了 Eloquent 的类都有两个 '固定用法' 'Article::find($number)' 'Article::all()'，前者会得到一个带有数据库中取出来值的对象，后者会得到一个包含整个数据库的对象合集。
+
+2. 所有的中间方法如 'where()' 'orderBy()' 等都能够同时支持 '静态' 和 '非静态链式' 两种方式调用，即 'Article::where()...' 和 'Article::....->where()'。
+
+3. 所有的 '非固定用法' 的调用最后都需要一个操作来 '收尾'，本片教程中有两个 '收尾操作'：'->get()' 和 '->first()'。
+
+4. 如果你不理解为什么 'Article' 这个类可以使用 '->where()' '->get()' 等很多方法的话，说明你需要去读一下 PHP 对象继承的文档了：对象继承。
+
+
+## 模型关系
+
+在模型中定义好关联关系
+
+### 一对一
+
+> Illuminate\Database\Eloquent\Concerns\HasRelationships
+
+```php
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class User extends Model{
+    /**
+     * 获取关联到用户的手机
+     */
+    public function phone()
+    {
+        return $this->hasOne('App\Phone');
+    }
+}
+
+```
+
+```php
+<?php
+
+namespace App\Model;
+
+use Illuminate\Database\Eloquent\Model;
+
+class UserRole extends Model
+{
+    //设置表名
+    protected $table = 'user_role';
+    //设置表主键
+    protected $primaryKey = 'role_id';
+
+    //一对多
+    public function roles() {
+        return $this->hasMany(Users::class,'role_id','role_id');
+    }
+
+    //反向关联
+    public function role() {
+
+        return $this->belongsTo(Users::class,'role_id','role_id');
+    }
 
 }
 ```
