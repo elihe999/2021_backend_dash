@@ -22,6 +22,39 @@ http.cors.allow-origin: "*"
 
 <http://mobz.github.io/elasticsearch-head/>
 
+#### put
+
+```
+PUT http://localhost:9200/megacorp/employee/1 
+
+{ "first_name" : "John", "last_name" : "Smith", "age" : 25, "about" : "I love to go rock climbing", "interests": [ "sports", "music" ] }
+```
+
+return 
+
+```json
+{
+"_index": "megacorp",
+"_type": "employee",
+"_id": "1",
+"_version": 1,
+"result": "created",
+"_shards": {
+"total": 2,
+"successful": 1,
+"failed": 0
+},
+"_seq_no": 0,
+"_primary_term": 1
+}
+```
+
+#### GET
+
+GET /megacorp/employee/1
+GET /megacorp/employee/_search
+
+
 
 ### Logstash
 
