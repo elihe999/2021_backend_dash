@@ -1,4 +1,4 @@
-# elk
+﻿# elk
 
 ## stack
 
@@ -12,6 +12,16 @@
 cd elasticsearch-<version>
 ./bin/elasticsearch
 ```
+
+#action.destructive_requires_name: true
+http.cors.enabled: true
+http.cors.allow-origin: "*"
+
+1) 网址:https://github.com/mobz/elasticsearch-head下载安装包,npm install 
+2) 安装完成之后npm run start或grunt server,启动head插件
+
+<http://mobz.github.io/elasticsearch-head/>
+
 
 ### Logstash
 
