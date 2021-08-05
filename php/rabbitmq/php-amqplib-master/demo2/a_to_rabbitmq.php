@@ -14,7 +14,7 @@ use PhpAmqpLib\Message\AMQPMessage;
 include('../config/config.php');
 
 
-createOrder();
+createOrder(1);
 
 
 function createOrder($i)
