@@ -22,3 +22,19 @@ curl -s https://laravel.build/my-inspiring-app | bash
 <https://udomain.dl.sourceforge.net/project/laragon/releases/4.0/laragon-full.exe>
 
 https://laragon.org/
+
+## psr
+
+- PSR-4: Improved Autoloading
+- PSR-3: Logger Interface
+- PSR-6: Caching Interface
+- PSR-11: Container Interface
+- PSR-13: Hypermedia Links
+- PSR-14: Event Dispatcher
+- PSR-16: Simple Cache
+- PSR-7: HTTP Message Interfaces
+- PSR-15: HTTP Handlers
+- PSR-17: HTTP Factories
+- PSR-18: HTTP Client
+- PSR-1: Basic Coding Standard
+- PSR-12: Extended Coding Style Guide

@@ -1,0 +1,9 @@
+{
+  "method": "goods.GetByIdGoodsName",
+  "params": [{
+    "Id": 0,
+    "Name": ""
+  }],
+  "id": 0
+}
+rr

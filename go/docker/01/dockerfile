@@ -1,0 +1,20 @@
+FROM alpine:3.11
+
+# 事先就可以帮助我们构建好容器中所需要的环境；比如下载go；或者安装其他程序等
+
+# RUN 可写的命令是基于FROM alpine:3.11镜像能支持的命令
+RUN mkdir /go
+# \ 分割符号
+# && 命令连接 -》让多个命令合在一起运行
+RUN cd /go \
+  && wget https://golang.google.cn/dl/go1.15.7.linux-amd64.tar.gz \
+  && tar -zxvf go1.15.7.linux-amd64.tar.gz \
+  && rm -rf /go/go1.15.7.linux-amd64.tar.gz
+
+# 把自己构建系统的这个过程记录在这个文件中；
+# DOCKER 就是通过执行的dockerfile的指令构建的
+
+
+# 作业：构建centos的go镜像容器，再构建一个PHP的apline系统 （安装swoole扩展）-》能够实现容器中 go tcp服务于swoole - tcp服务对接
+
+EXPOSE 3306 8080

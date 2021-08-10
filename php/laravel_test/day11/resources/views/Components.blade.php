@@ -1,0 +1,10 @@
+@component('view.alert',['winner'=>'帅不帅'])
+    winner最帅
+    {{--匹配定义卡槽--}}
+    @slot('title')
+        人生无悔
+        @endslot()
+    @slot('test')
+        我定义自己的内容
+        @endslot()
+@endcomponent()
