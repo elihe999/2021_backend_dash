@@ -70,3 +70,8 @@ posix_kill函数
 pcntl_signal(int $signo, callback $handler, bool $restart_syscalls = true): bool
 ```
 
+# 14
+
+## Semaphore 函数
+
+* msg_queue_exists

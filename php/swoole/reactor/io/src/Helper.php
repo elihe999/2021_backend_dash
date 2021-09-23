@@ -20,7 +20,10 @@ function pidGet($path){
     return explode("|",  substr($string, 0 , strlen($string) - 1));
 }
 
-
+function basePath(){
+    // __DIR__ 这是获取该文件运行的目录地址
+    return __DIR__;
+}
 
 
 function debug($data, $flag = false)

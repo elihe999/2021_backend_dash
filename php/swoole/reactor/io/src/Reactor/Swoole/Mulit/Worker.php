@@ -15,13 +15,21 @@ class Worker
     public $socket = null;
     // 创建多个子进程 -》 是不是可以自定义
     protected $config = [
-        'worker_num' => 4
+        'worker_num' => 4,
+        'worker_pid_files' => __DIR__."/workerPids.txt",
+        'context' => [
+            'socket' => [
+                // 设置等待资源的个数
+                'backlog' => '102400',
+            ],
+        ]
     ];
     protected $socket_address = null;
     // 记录子进程pid地址
-    protected $workerPidFiles = __DIR__."/workerPids.txt";
+    // protected $workerPidFiles = __DIR__."/workerPids.txt";
     // 以内存的方式存pids
-    protected $workerPids = [];
+    // protected $workerPids = [];
+
 
     public function __construct($socket_address)
     {
@@ -34,19 +42,11 @@ class Worker
     }
 
 
-
     public function initServer()
     {
         // 并不会起到太大的影响
         // 这里是参考与workerman中的写法
-        $opts = [
-            'socket' => [
-                // 设置等待资源的个数
-                'backlog' => '102400',
-            ],
-        ];
-
-        $context = stream_context_create($opts);
+        $context = stream_context_create($this->config['context']);
         // 设置端口可以重复监听
         \stream_context_set_option($context, 'socket', 'so_reuseport', 1);
 
@@ -94,7 +94,7 @@ class Worker
     {
         // 先停止运行的进程
         $this->stop();
-        pidPut(null, $this->workerPidFiles);
+        pidPut(null, $this->config['worker_pid_files']);
         // 清空记录
         $this->fork();
     }
@@ -124,7 +124,7 @@ class Worker
         switch ($sig) {
           case SIGUSR1:
             //重启
-            $this->reloadSig();
+            $this->reload();
             break;
           case SIGKILL:
             // 停止
@@ -135,7 +135,7 @@ class Worker
 
     public function stop()
     {
-        $workerPids = pidGet($this->workerPidFiles);
+        $workerPids = pidGet($this->config['worker_pid_files']);
         foreach ($workerPids  as $key => $workerPid) {
             posix_kill($workerPid, 9);
         }
@@ -145,9 +145,8 @@ class Worker
     public function start()
     {
         debug('start 开始 访问：'.$this->socket_address);
-        pidPut(null, $this->workerPidFiles);
+        pidPut(null, $this->config['worker_pid_files']);
         $this->fork();
-
         // 答案是后
         $this->monitorWorkersForLinux();
     }
@@ -172,7 +171,7 @@ class Worker
             $son11 = pcntl_fork();
             if ($son11 > 0) {
                 // 父进程空间
-                pidPut($son11, $this->workerPidFiles);
+                pidPut($son11, $this->config['worker_pid_files']);
                 $this->workerPids[] = $son11;
             } else if($son11 < 0){
                 // 进程创建失败的时候
